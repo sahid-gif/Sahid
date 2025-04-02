@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Audio Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+            padding: 20px;
+        }
+        .audio-player {
+            display: inline-block;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        button {
+            background: #ff5722;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #e64a19;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Custom Audio Player</h1>
+
+    <div class="audio-player">
+        <button id="playPauseBtn">▶ Play</button>
+        <input type="range" id="seekBar" value="0" min="0" step="0.1">
+        <input type="range" id="volumeBar" min="0" max="1" step="0.1" value="1">
+    </div>
+
+    <audio id="audio" hidden>
+        <source src="https://github.com/sahid-gif/Sahid/raw/refs/heads/main/Paththavaikkum%20%20Devara%20Second%20Single%20%20NTR%20%20Janhvi%20Kapoor%20%20Anirudh%20%20Deepthi%20Suresh%20%2027%20Sep%202024.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const seekBar = document.getElementById('seekBar');
+        const volumeBar = document.getElementById('volumeBar');
+
+        playPauseBtn.addEventListener('click', function () {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸ Pause';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶ Play';
+            }
+        });
+
+        audio.addEventListener('timeupdate', function () {
+            seekBar.value = audio.currentTime;
+            seekBar.max = audio.duration;
+        });
+
+        seekBar.addEventListener('input', function () {
+            audio.currentTime = seekBar.value;
+        });
+
+        volumeBar.addEventListener('input', function () {
+            audio.volume = volumeBar.value;
+        });
+    </script>
+
+</body>
+</html>
